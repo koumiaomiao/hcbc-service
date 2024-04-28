@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Optional;
+
 @RestController
 @RequestMapping("/api")
 public class HcbcController {
@@ -13,14 +15,14 @@ public class HcbcController {
     @Autowired
     private HcbcService hcbcService;
 
-    @PostMapping("/book")
+    @PostMapping("/books")
     public ResponseEntity<?> create(@RequestBody final Book book) {
         return ResponseEntity.ok(hcbcService.save(book));
     }
 
     @GetMapping("/books/{id}")
     public ResponseEntity<?> findById(@PathVariable final String id) {
-        final var response = hcbcService.findById(id);
+        Optional<Book> response = hcbcService.findById(id);
         if (response.isEmpty()) {
             return ResponseEntity.notFound().build();
         }

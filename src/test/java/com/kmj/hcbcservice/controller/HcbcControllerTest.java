@@ -14,7 +14,6 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import java.util.Optional;
@@ -35,17 +34,16 @@ public class HcbcControllerTest {
     private HcbcService hcbcService;
 
     private Book book;
-    private ResultActions resultActions;
 
     @BeforeEach
-    public void setUp() throws Exception {
-        book = new Book(1, "title1", "author1", "1998", "123456");
+    public void setUp() {
+        book = new Book("1", "title1", "author1", "1998", "123456");
     }
 
     @Test
     public void create() throws Exception {
         Gson gson = new GsonBuilder().create();
-        mockMvc.perform(MockMvcRequestBuilders.post("/api/book")
+        mockMvc.perform(MockMvcRequestBuilders.post("/api/books")
                         .contentType("application/json;charset=UTF-8")
                         .content(gson.toJson(book))
                         .accept(MediaType.APPLICATION_JSON))

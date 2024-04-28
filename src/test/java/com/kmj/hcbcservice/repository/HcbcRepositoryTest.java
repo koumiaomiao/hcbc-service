@@ -22,7 +22,7 @@ public class HcbcRepositoryTest {
 
     @BeforeEach
     public void setUp() {
-        book = new Book(1, "title1", "author1", "1998", "123456");
+        book = new Book("1", "title1", "author1", "1998", "123456");
         hcbcRepository.save(book);
     }
 
@@ -36,4 +36,6 @@ public class HcbcRepositoryTest {
     public void should_get_the_book_from_repository_when_find_book_by_id() {
         hcbcRepository.findById(String.valueOf(book.getId())).ifPresent(value -> assertThat(value).isEqualTo(book));
     }
+
+
 }

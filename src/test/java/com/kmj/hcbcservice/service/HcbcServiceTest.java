@@ -22,7 +22,7 @@ public class HcbcServiceTest {
 
     @BeforeEach
     public void setUp() {
-        book = new Book(1, "title1", "author1", "1998", "123456");
+        book = new Book("1", "title1", "author1", "1998", "123456");
     }
 
     @Test
