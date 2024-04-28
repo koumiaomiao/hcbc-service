@@ -16,10 +16,14 @@ public class HcbcService {
     private HcbcRepository hcbcRepository;
 
     public Book save(Book book) {
-       return hcbcRepository.save(book);
+        return hcbcRepository.save(book);
     }
 
     public Optional<Book> findById(String id) {
         return hcbcRepository.findById(id);
+    }
+
+    public Book update(Book book) {
+        return hcbcRepository.save(book);
     }
 }

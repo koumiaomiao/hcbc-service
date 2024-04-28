@@ -28,4 +28,13 @@ public class HcbcController {
         }
         return ResponseEntity.ok(response.get());
     }
+
+    @PutMapping("/books/{id}")
+    public ResponseEntity<?> update(@PathVariable final String id, @RequestBody final Book book) {
+        Optional<Book> response = hcbcService.findById(id);
+        if(response.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(hcbcService.update(book));
+    }
 }

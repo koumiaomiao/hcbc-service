@@ -14,10 +14,14 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
+import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import java.util.Optional;
 
+import static java.sql.DriverManager.println;
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -34,15 +38,16 @@ public class HcbcControllerTest {
     private HcbcService hcbcService;
 
     private Book book;
+    private Gson gson;
 
     @BeforeEach
     public void setUp() {
         book = new Book("1", "title1", "author1", "1998", "123456");
+        gson = new GsonBuilder().create();
     }
 
     @Test
     public void create() throws Exception {
-        Gson gson = new GsonBuilder().create();
         mockMvc.perform(MockMvcRequestBuilders.post("/api/books")
                         .contentType("application/json;charset=UTF-8")
                         .content(gson.toJson(book))
@@ -50,10 +55,9 @@ public class HcbcControllerTest {
                 .andExpect(status().isOk());
     }
 
-
     @Test
     public void findById() throws Exception {
-        when(hcbcService.findById(String.valueOf(book.getId()))).thenReturn(Optional.ofNullable(book));
+        when(hcbcService.findById(book.getId())).thenReturn(Optional.ofNullable(book));
         mockMvc.perform(MockMvcRequestBuilders.get("/api/books/{id}", book.getId())
                         .header("Content-Type", "application/json"))
                 .andExpect(status().isOk())
@@ -64,6 +68,18 @@ public class HcbcControllerTest {
                 .andExpect(status().isNotFound());
     }
 
+    @Test
+    public void update() throws Exception {
+        when(hcbcService.save(book)).thenReturn(book);
+        Book anotherBook = new Book("1", "titlex", "authorx", "1998", "123456");
+        when(hcbcService.findById(anotherBook.getId())).thenReturn(Optional.ofNullable(book));
 
+        hcbcService.save(book);
+        mockMvc.perform(MockMvcRequestBuilders.put("/api/books/{id}", anotherBook.getId())
+                        .contentType("application/json;charset=UTF-8")
+                        .content(gson.toJson(anotherBook))
+                        .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
+    }
 
 }

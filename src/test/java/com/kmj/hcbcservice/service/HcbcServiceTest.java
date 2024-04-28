@@ -19,22 +19,30 @@ public class HcbcServiceTest {
     private HcbcService hcbcService;
 
     private Book book;
+    private Book createdBook;
 
     @BeforeEach
     public void setUp() {
         book = new Book("1", "title1", "author1", "1998", "123456");
+        createdBook = hcbcService.save(book);
     }
 
     @Test
     public void should_get_the_book_when_create_a_book() {
-        Book createdBook = hcbcService.save(book);
         assertSame(createdBook, book);
     }
 
     @Test
     public void should_get_the_book_when_find_book_by_id() {
-        hcbcService.findById(String.valueOf(book.getId())).ifPresent(value -> {
+        hcbcService.findById(book.getId()).ifPresent(value -> {
             assertThat(value.getTitle()).isEqualTo(book.getTitle());
         });
+    }
+
+    @Test
+    public void should_get_latest_book_when_update_book_info() {
+        Book anotherBook = new Book("1", "titlex", "authorx", "1998", "123456");
+        Book updatedBook = hcbcService.update(anotherBook);
+        assertThat(updatedBook.getTitle()).isEqualTo(anotherBook.getTitle());
     }
 }
