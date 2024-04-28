@@ -5,7 +5,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.data.mongodb.core.mapping.Field;
 
 @Data
 @AllArgsConstructor
@@ -17,8 +16,6 @@ public class Book {
     private int id;
     private String title;
     private String author;
-    @Field("publication_year")
     private String publicationYear;
-    @Field("ISBN")
     private String isbn;
 }
