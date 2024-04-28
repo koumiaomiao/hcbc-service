@@ -26,7 +26,7 @@ pipeline {
                 retry(3)
             }
             steps {
-                sh 'docker login -u mjkou@thoughtworks.com -p Kou19910526.'
+                sh 'docker login -u mjkou@thoughtworks.com -p password.'
                 sh 'docker build -t koumiaojuan/hcbc-service:0.0.1-SNAPSHOT .'
                 sh 'docker run -p 8088:8088 koumiaojuan/hcbc-service:0.0.1-SNAPSHOT'
             }
