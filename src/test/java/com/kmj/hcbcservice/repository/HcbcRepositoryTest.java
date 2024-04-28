@@ -33,7 +33,7 @@ public class HcbcRepositoryTest {
     }
 
     @Test
-    public void should_get_the_book_when_find_book_by_id() {
+    public void should_get_the_book_from_repository_when_find_book_by_id() {
         hcbcRepository.findById(String.valueOf(book.getId())).ifPresent(value -> assertThat(value).isEqualTo(book));
     }
 }
