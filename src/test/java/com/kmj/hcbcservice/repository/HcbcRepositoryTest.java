@@ -37,5 +37,9 @@ public class HcbcRepositoryTest {
         hcbcRepository.findById(book.getId()).ifPresent(value -> assertThat(value).isEqualTo(book));
     }
 
-
+    @Test
+    public void should_delete_the_book_from_repository_when_delete_a_book_by_id() {
+        hcbcRepository.deleteById(book.getId());
+        assertThat(hcbcRepository.findAll()).isEmpty();
+    }
 }

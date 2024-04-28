@@ -82,4 +82,11 @@ public class HcbcControllerTest {
                 .andExpect(status().isOk());
     }
 
+    @Test
+    public void deleteById() throws Exception {
+        when(hcbcService.save(book)).thenReturn(book);
+        hcbcService.save(book);
+        mockMvc.perform(MockMvcRequestBuilders.delete("/api/books/{id}", book.getId()))
+                .andExpect(status().isOk());
+    }
 }

@@ -45,4 +45,10 @@ public class HcbcServiceTest {
         Book updatedBook = hcbcService.update(anotherBook);
         assertThat(updatedBook.getTitle()).isEqualTo(anotherBook.getTitle());
     }
+
+    @Test
+    public void should_not_find_book_when_delete_a_book() {
+        hcbcService.deleteById(book.getId());
+        assertThat(hcbcService.findById(book.getId())).isEmpty();
+    }
 }

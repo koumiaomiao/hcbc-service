@@ -26,4 +26,8 @@ public class HcbcService {
     public Book update(Book book) {
         return hcbcRepository.save(book);
     }
+
+    public void deleteById(String id) {
+        hcbcRepository.deleteById(id);
+    }
 }

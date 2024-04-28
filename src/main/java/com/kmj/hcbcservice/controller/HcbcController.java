@@ -9,18 +9,24 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/books")
 public class HcbcController {
 
     @Autowired
     private HcbcService hcbcService;
 
-    @PostMapping("/books")
+    @PostMapping
     public ResponseEntity<?> create(@RequestBody final Book book) {
         return ResponseEntity.ok(hcbcService.save(book));
     }
 
-    @GetMapping("/books/{id}")
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteById(@PathVariable final String id) {
+        hcbcService.deleteById(id);
+        return ResponseEntity.ok().build();
+    }
+
+    @GetMapping("/{id}")
     public ResponseEntity<?> findById(@PathVariable final String id) {
         Optional<Book> response = hcbcService.findById(id);
         if (response.isEmpty()) {
@@ -29,10 +35,10 @@ public class HcbcController {
         return ResponseEntity.ok(response.get());
     }
 
-    @PutMapping("/books/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<?> update(@PathVariable final String id, @RequestBody final Book book) {
         Optional<Book> response = hcbcService.findById(id);
-        if(response.isEmpty()) {
+        if (response.isEmpty()) {
             return ResponseEntity.notFound().build();
         }
         return ResponseEntity.ok(hcbcService.update(book));
