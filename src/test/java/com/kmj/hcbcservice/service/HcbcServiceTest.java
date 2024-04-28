@@ -1,6 +1,7 @@
 package com.kmj.hcbcservice.service;
 
 import com.kmj.hcbcservice.document.Book;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
@@ -33,10 +34,9 @@ public class HcbcServiceTest {
     }
 
     @Test
-    public void should_get_the_book_when_find_book_by_id() {
-        hcbcService.findById(book.getId()).ifPresent(value -> {
-            assertThat(value.getTitle()).isEqualTo(book.getTitle());
-        });
+    public void should_not_find_book_when_delete_a_book() {
+        hcbcService.deleteById(book.getId());
+        assertThat(hcbcService.findById(book.getId())).isEmpty();
     }
 
     @Test
@@ -47,8 +47,14 @@ public class HcbcServiceTest {
     }
 
     @Test
-    public void should_not_find_book_when_delete_a_book() {
+    public void should_get_the_book_when_find_book_by_id() {
+        hcbcService.findById(book.getId()).ifPresent(value -> {
+            assertThat(value.getTitle()).isEqualTo(book.getTitle());
+        });
+    }
+
+    @AfterEach
+    public void down() {
         hcbcService.deleteById(book.getId());
-        assertThat(hcbcService.findById(book.getId())).isEmpty();
     }
 }

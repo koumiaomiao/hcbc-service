@@ -6,6 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Slf4j
@@ -19,15 +20,21 @@ public class HcbcService {
         return hcbcRepository.save(book);
     }
 
-    public Optional<Book> findById(String id) {
-        return hcbcRepository.findById(id);
+    public void deleteById(String id) {
+        hcbcRepository.deleteById(id);
     }
 
     public Book update(Book book) {
         return hcbcRepository.save(book);
     }
 
-    public void deleteById(String id) {
-        hcbcRepository.deleteById(id);
+    public Optional<Book> findById(String id) {
+        return hcbcRepository.findById(id);
     }
+
+    public List<Book> findAll() {
+        return hcbcRepository.findAll();
+    }
+
+
 }

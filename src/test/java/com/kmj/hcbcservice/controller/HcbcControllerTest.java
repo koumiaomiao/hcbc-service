@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.kmj.hcbcservice.document.Book;
 import com.kmj.hcbcservice.service.HcbcService;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
@@ -14,14 +15,10 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.MvcResult;
-import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import java.util.Optional;
 
-import static java.sql.DriverManager.println;
-import static org.hamcrest.MatcherAssert.assertThat;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -56,16 +53,11 @@ public class HcbcControllerTest {
     }
 
     @Test
-    public void findById() throws Exception {
-        when(hcbcService.findById(book.getId())).thenReturn(Optional.ofNullable(book));
-        mockMvc.perform(MockMvcRequestBuilders.get("/api/books/{id}", book.getId())
-                        .header("Content-Type", "application/json"))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.title").value("title1"));
-
-        mockMvc.perform(MockMvcRequestBuilders.get("/api/books/{id}", 2)
-                        .header("Content-Type", "application/json"))
-                .andExpect(status().isNotFound());
+    public void deleteById() throws Exception {
+        when(hcbcService.save(book)).thenReturn(book);
+        hcbcService.save(book);
+        mockMvc.perform(MockMvcRequestBuilders.delete("/api/books/{id}", book.getId()))
+                .andExpect(status().isOk());
     }
 
     @Test
@@ -83,10 +75,15 @@ public class HcbcControllerTest {
     }
 
     @Test
-    public void deleteById() throws Exception {
-        when(hcbcService.save(book)).thenReturn(book);
-        hcbcService.save(book);
-        mockMvc.perform(MockMvcRequestBuilders.delete("/api/books/{id}", book.getId()))
-                .andExpect(status().isOk());
+    public void findById() throws Exception {
+        when(hcbcService.findById(book.getId())).thenReturn(Optional.ofNullable(book));
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/books/{id}", book.getId())
+                        .header("Content-Type", "application/json"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.title").value("title1"));
+
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/books/{id}", 2)
+                        .header("Content-Type", "application/json"))
+                .andExpect(status().isNotFound());
     }
 }

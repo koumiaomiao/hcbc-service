@@ -1,6 +1,7 @@
 package com.kmj.hcbcservice.repository;
 
 import com.kmj.hcbcservice.document.Book;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
@@ -23,9 +24,9 @@ public class HcbcRepositoryTest {
     @BeforeEach
     public void setUp() {
         book = new Book("1", "title1", "author1", "1998", "123456");
+        hcbcRepository.deleteAll();
         hcbcRepository.save(book);
     }
-
 
     @Test
     public void should_insert_a_book_to_repository_success_when_create_a_book() {
@@ -33,13 +34,18 @@ public class HcbcRepositoryTest {
     }
 
     @Test
+    public void should_delete_the_book_from_repository_when_delete_a_book_by_id() {
+        hcbcRepository.deleteById(book.getId());
+        assertThat(hcbcRepository.findAll()).isEmpty();
+    }
+
+    @Test
     public void should_get_the_book_from_repository_when_find_book_by_id() {
         hcbcRepository.findById(book.getId()).ifPresent(value -> assertThat(value).isEqualTo(book));
     }
 
-    @Test
-    public void should_delete_the_book_from_repository_when_delete_a_book_by_id() {
-        hcbcRepository.deleteById(book.getId());
-        assertThat(hcbcRepository.findAll()).isEmpty();
+    @AfterEach
+    public void down() {
+        hcbcRepository.deleteAll();
     }
 }
