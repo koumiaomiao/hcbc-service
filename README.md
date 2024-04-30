@@ -1,12 +1,9 @@
 ### Prerequisites
 
-JDK 17+
-
-1. IntelliJ IDEA 2024.1 (Ultimate Edition)
-
-2. Install Gradle: brew install gradle
-
-3. Clone Project: git@github.com:koumiaomiao/hcbc-service.git
+1. JDK 17+ 
+2. IntelliJ IDEA 2024.1 (Ultimate Edition)
+3. Install Gradle: brew install gradle
+4. Clone Project: git@github.com:koumiaomiao/hcbc-service.git
 
 ### Start local server
 
