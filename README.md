@@ -4,64 +4,60 @@ JDK 17+
 
 IntelliJ IDEA 2024.1 (Ultimate Edition)
 
-Install Android SDK: Go to Setting -> Language&Frameworks -> SDK, select latest sdk version, download and apply it
+Install Gradle: brew install gradle
 
-Gradle 8.7
+Clone Project: git@github.com:koumiaomiao/hcbc-service.git
 
-Clone Project: https://github.com/koumiaomiao/hcbc-service
-
-### Run Spring Boot project in docker
+### Start local server
 
 Enter root directory: hcbc-service
 
 Sync project
 
-Start project: ./gradlew clean bootRun
+Start project: `./gradlew bootRun`
 
-Build jar file: ./gradlew clean bootJar
+### Publish project to docker
 
-Install docker and login
+Build jar file
 
-Generate docker image:  docker build -t koumiaomiao/hcbc:0.0.1 . [mongodb url host: localhost]
+``````bash
+./gradlew clean bootJar
+``````
 
-Push service image to dockerhub: docker push koumiaomiao/hcbc:0.0.1 [need to login to access docker hub]
+[Install docker and login](https://formulae.brew.sh/formula/docker)
 
-Start docker and pull mongodb image and generate a container
+Generate docker image
 
-Start service in docker: docker run -p 8088:8088 koumiaomiao/hcbc:0.0.1
+``````bash
+docker build -t koumiaomiao/hcbc:0.0.1 .
+``````
+
+Push service image to dockerhub
+
+``````bash
+docker push koumiaomiao/hcbc:0.0.1 [need to login to access docker hub]
+``````
 
 ### Deploy to AWS
 
-Login AWS, Enter Elastic Container Service
+- Login AWS, Enter Elastic Container Service
 
-Create AWS Cluster, Define mongodb task using dockerhub latest mongo image [port:27017]
+- Create AWS Cluster, Define mongodb task using dockerhub latest mongo image, the mongodb task port is 27017
+-  Run mongo server and get it's public ip address, using mongodb compass test connection
+- Open application.properties file, replace mongodb localhost to public ip address provided by aws
+- Re-Run `publish spring boot project to docker` process
+- Define hcbc-service task using hcbc-service image, named `koumiaomiao/hcbc:0.0.1`, which is finally be published to dockerhub.
+- Run hcbc-service server and get it's public address
 
-Run mongo server and get it's public ip address, using mongodb compass test connection
+### How to use 
 
-Open application.properties file, replace mongodb host to public ip address provided by aws
-
-Re-Run service image packaging process
-
-Define service task using service image, which is finally be published to dockerhub.
-
-Run service server and get it's public address
-
-Start app using public address
+See the `how to connect to server section` of [README](https://github.com/koumiaomiao/android-hcbc) to see detail
 
 
 ### Architecture
 
 MVC Architecture: https://spring.io/projects/spring-boot
 
-
 ### CI/CD
 
-Login AWS, Enter Elastic Container Service
-
-Create AWS Cluster, Define jenkins task using dockerhub latest jenkins image version: jenkins. Notice not jenkins:2.60.3
-
-Run jenkins server and get it's public ip address
-
-Chrome access jenkins public ip and config jenkins environment, init password can be found in jenkins task log
-
-Pipeline is multi-branch style, execute task by jenkins file built-in app project
+See the ci/cd section of [README](https://github.com/koumiaomiao/android-hcbc) to see detail
