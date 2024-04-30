@@ -3,7 +3,7 @@
 - JDK 17+ 
 - IntelliJ IDEA 2024.1 (Ultimate Edition)
 - Gradle: brew install gradle 
-- Clone Project: git@github.com:koumiaomiao/hcbc-service.git
+- Clone Project: `git clone git@github.com:koumiaomiao/hcbc-service.git`
 
 ### Start local server
 
