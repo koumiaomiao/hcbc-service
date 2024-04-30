@@ -2,19 +2,17 @@
 
 JDK 17+
 
-IntelliJ IDEA 2024.1 (Ultimate Edition)
+1. IntelliJ IDEA 2024.1 (Ultimate Edition)
 
-Install Gradle: brew install gradle
+2. Install Gradle: brew install gradle
 
-Clone Project: git@github.com:koumiaomiao/hcbc-service.git
+3. Clone Project: git@github.com:koumiaomiao/hcbc-service.git
 
 ### Start local server
 
 Enter root directory: hcbc-service
 
-Sync project
-
-Start project: 
+Start project
 
 ``````bash
 ./gradlew bootRun
