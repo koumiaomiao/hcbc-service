@@ -55,7 +55,7 @@ docker push koumiaomiao/hcbc:0.0.1 [need to login to access docker hub]
 
 ### How to use 
 
-See the `Connect to server section` of [README](https://github.com/koumiaomiao/android-hcbc) to see detail
+See the `Connect to server` of [README](https://github.com/koumiaomiao/android-hcbc) to see detail
 
 
 ### Architecture
