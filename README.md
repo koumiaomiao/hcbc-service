@@ -55,7 +55,7 @@ docker push koumiaomiao/hcbc:0.0.1 [need to login to access docker hub]
 
 ### How to use 
 
-See the `how to connect to server section` of [README](https://github.com/koumiaomiao/android-hcbc) to see detail
+See the `Connect to server section` of [README](https://github.com/koumiaomiao/android-hcbc) to see detail
 
 
 ### Architecture
@@ -64,4 +64,4 @@ MVC Architecture: https://spring.io/projects/spring-boot
 
 ### CI/CD
 
-See the ci/cd section of [README](https://github.com/koumiaomiao/android-hcbc) to see detail
+See the `CI/CD` section of [README](https://github.com/koumiaomiao/android-hcbc) to see detail
