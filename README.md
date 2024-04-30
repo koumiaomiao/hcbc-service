@@ -14,7 +14,11 @@ Enter root directory: hcbc-service
 
 Sync project
 
-Start project: `./gradlew bootRun`
+Start project: 
+
+``````bash
+./gradlew bootRun
+``````
 
 ### Publish project to docker
 
