@@ -26,13 +26,13 @@ Build jar file
 Generate docker image
 
 ``````bash
-docker build -t koumiaomiao/hcbc:0.0.1 .
+docker build -t koumiaojuan/hcbc:0.0.1 .
 ``````
 
 Push service image to dockerhub
 
 ``````bash
-docker push koumiaomiao/hcbc:0.0.1 [need to login to access docker hub]
+docker push koumiaojuan/hcbc:0.0.1 [need to login to access docker hub]
 ``````
 
 ### Deploy to AWS
@@ -40,10 +40,10 @@ docker push koumiaomiao/hcbc:0.0.1 [need to login to access docker hub]
 - Login AWS, Enter Elastic Container Service
 
 - Create AWS Cluster, Define mongodb task using dockerhub latest mongo image, the mongodb task port is 27017
--  Run mongo server and get it's public ip address, using mongodb compass test connection
+- Run mongo server and get it's public ip address, using mongodb compass test connection
 - Open application.properties file, replace mongodb localhost to public ip address provided by aws
-- Re-Run `publish spring boot project to docker` process
-- Define hcbc-service task using hcbc-service image, named `koumiaomiao/hcbc:0.0.1`, which is finally be published to dockerhub.
+- Re-Run `publish project to docker` process
+- Define hcbc-service task using hcbc-service image, named `koumiaojuan/hcbc:0.0.1`, which is finally be published to dockerhub.
 - Run hcbc-service server and get it's public address
 
 ### How to use 
